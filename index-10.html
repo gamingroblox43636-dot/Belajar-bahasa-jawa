@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#173f35">
+<title>Sinau Basa Jawa</title>
+<style>
+:root{--bg:#f5f0df;--ink:#20372d;--green:#245c48;--lime:#d6ef8b;--orange:#f2a65a;--card:#fffdf5;--muted:#6b786d;--line:#dcd9c7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:var(--green);color:white;padding:22px 17px 25px;border-bottom:6px solid #163d30}
+.top{max-width:980px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--lime)}h1{font-size:clamp(27px,6vw,42px);line-height:1.05;margin:9px 0}.sub{margin:0;color:#e0ebdf;font-size:14px}
+.pixel{font-size:45px;background:#d6ef8b;color:#173f35;padding:8px;border:4px solid #173f35;box-shadow:5px 5px 0 #102d24;image-rendering:pixelated}
+main{max-width:980px;margin:0 auto;padding:18px 14px 40px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:-5px}
+.stat{background:var(--card);border:2px solid var(--line);padding:12px;border-radius:12px}.stat strong{display:block;font-size:21px}.stat span{font-size:11px;color:var(--muted)}
+.section-title{font-size:20px;margin:25px 0 12px}.levels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.level{border:2px solid var(--line);border-radius:14px;background:var(--card);padding:14px;text-align:left;color:var(--ink);cursor:pointer;min-height:105px;transition:.15s}
+.level.active{border-color:var(--green);background:#e6f1d1;box-shadow:3px 3px 0 var(--green)}.level .emoji{font-size:25px}.level b{display:block;margin:5px 0 3px;font-size:16px}.level small{color:var(--muted);font-size:12px}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+.panel h2{font-size:19px;margin:0 0 5px}.muted{color:var(--muted);font-size:13px;margin:0 0 13px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+input,select{font:inherit;padding:10px;border:2px solid var(--line);border-radius:9px;background:white;color:var(--ink);min-width:0}
+input{flex:1;width:140px}
+button{font:inherit;cursor:pointer}
+.btn{border:0;border-radius:10px;background:var(--green);color:white;font-weight:750;padding:11px 14px}.btn.alt{background:var(--lime);color:var(--ink);border:1px solid #abc86b}.btn.light{background:#ece8d8;color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted)}td strong{display:block}td small{color:var(--muted)}
+.scroll{overflow-x:auto}.phrase{font-size:12px;color:var(--muted)}
+.quiz-question{font-size:19px;font-weight:800;margin:14px 0}.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}.answer{padding:12px;border:2px solid var(--line);border-radius:10px;background:white;text-align:left;color:var(--ink)}.answer.correct{background:#dff2c5;border-color:#57964d}.answer.wrong{background:#ffe0d5;border-color:#d9795c}
+#feedback{min-height:24px;font-size:14px;font-weight:650;margin:12px 0}
+.dialogue{background:#f2eedf;border-radius:10px;padding:12px;margin:8px 0}.dialogue b{color:var(--green)}
+footer{text-align:center;padding:18px;color:var(--muted);font-size:12px}
+@media(min-width:650px){.levels{grid-template-columns:repeat(4,minmax(0,1fr))}.contentgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;align-items:start}.panel{margin-top:14px}.stats{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="top"><div><div class="logo">GAME BELAJAR • PIXEL JAWA</div><h1>Sinau Basa Jawa</h1><p class="sub">Sinau sethithik-sethithik, dadi luwih pinter!<br>Belajar sedikit demi sedikit, jadi makin mahir.</p></div><div class="pixel" aria-hidden="true">🏡</div></div></header>
+<main>
+<div class="stats">
+ <div class="stat"><strong id="points">0 XP</strong><span>POIN SINAU</span></div>
+ <div class="stat"><strong id="learned">0</strong><span>KOSAKATA DIBUKA</span></div>
+ <div class="stat"><strong id="streak">0/5</strong><span>JAWABAN BENAR</span></div>
+</div>
+<h2 class="section-title">Pilih unggah-ungguh basa</h2>
+<div class="levels" id="levels">
+ <button class="level active" data-level="ngoko"><span class="emoji">🧑‍🤝‍🧑</span><b>Ngoko</b><small>Untuk teman akrab</small></button>
+ <button class="level" data-level="ngokoalus"><span class="emoji">🙂</span><b>Ngoko Alus</b><small>Santai, lebih menghormati</small></button>
+ <button class="level" data-level="krama"><span class="emoji">🙏</span><b>Krama</b><small>Sopan kepada orang lain</small></button>
+ <button class="level" data-level="kramainggil"><span class="emoji">🌼</span><b>Krama Alus / Inggil</b><small>Ungkapan penghormatan</small></button>
+</div>
+<div class="contentgrid">
+<section class="panel">
+ <h2 id="vocabTitle">📚 Kosakata Ngoko</h2><p class="muted">Pilih kosakata untuk belajar arti dan contoh penggunaannya.</p>
+ <div class="controls"><input id="search" placeholder="Cari kata, misalnya mangan..." aria-label="Cari kosakata"><button class="btn alt" id="clearSearch">Reset</button></div>
+ <div class="scroll"><table><thead><tr><th>Indonesia</th><th>Basa Jawa</th><th>Contoh</th></tr></thead><tbody id="vocab"></tbody></table></div>
+ <p class="phrase" id="countLabel"></p>
+</section>
+<section>
+ <div class="panel">
+  <h2>🎮 Kuis Cilik</h2><p class="muted">Pilih arti kata yang tepat untuk mendapat XP.</p>
+  <div id="quizArea"><div class="quiz-question" id="question">Apa arti kata “matur nuwun”?</div><div class="answers" id="answers"></div><div id="feedback" aria-live="polite"></div><button class="btn" id="nextQuiz">Soal berikutnya →</button></div>
+ </div>
+ <div class="panel">
+  <h2>💬 Latihan Percakapan</h2><p class="muted">Contoh sederhana untuk situasi sehari-hari.</p>
+  <div class="controls"><select id="situation" aria-label="Pilih situasi"><option value="greeting">Menyapa orang</option><option value="thanks">Mengucapkan terima kasih</option><option value="ask">Bertanya kabar</option></select></div>
+  <div id="dialogue"></div>
+ </div>
+ <div class="panel">
+  <h2>🌱 Tips Sinau</h2>
+  <p style="margin-bottom:7px">• Gunakan <b>ngoko</b> kepada teman akrab.</p>
+  <p style="margin-bottom:7px">• Gunakan <b>krama</b> untuk berbicara sopan, misalnya kepada orang yang lebih tua.</p>
+  <p style="margin:0">• Pilihan kata bisa berbeda menurut daerah dan kebiasaan keluarga.</p>
+ </div>
+</section>
+</div>
+</main>
+<footer>Sinau Basa Jawa • Bisa dibuka offline setelah file tersimpan di HP.</footer>
+<script>
+const data={
+ngoko:[
+['Saya','Aku','Aku arep sinau.'],['Kamu','Kowe','Kowe lagi apa?'],['Makan','Mangan','Aku mangan sega.'],['Minum','Ngombe','Aku ngombe banyu.'],['Tidur','Turu','Adhiku lagi turu.'],['Pergi','Lunga','Aku lunga menyang sekolah.'],['Pulang','Mulih','Aku mulih sore.'],['Sudah','Wis','Aku wis rampung.'],['Belum','Durung','Aku durung mangan.'],['Bagaimana','Piye','Piye kabarmu?'],['Terima kasih','Matur nuwun','Matur nuwun wis nulungi.'],['Maaf','Ngapura / Nyuwun pangapura','Ngapura, aku telat.'],['Rumah','Omah','Omahku cedhak sekolah.'],['Air','Banyu','Aku ngombe banyu.'],['Bagus','Apik','Gambarmu apik.']],
+ngokoalus:[
+['Saya','Aku (gumantung konteks)','Aku arep matur marang Pak Guru.'],['Makan','Mangan','Aku mangan bareng kulawarga.'],['Pergi','Lunga','Aku lunga dhisik, ya.'],['Berkata','Ngomong / matur (sopan)','Aku arep matur marang Bu Guru.'],['Terima kasih','Matur nuwun','Matur nuwun sanget.'],['Maaf','Nyuwun pangapura','Nyuwun pangapura yen ana luput.'],['Silakan','Monggo','Monggo pinarak.'],['Sudah','Wis / sampun (miturut konteks)','Aku wis rampung.'],['Belum','Durung / dereng (miturut konteks)','Aku durung siap.']],
+krama:[
+['Saya','Kula','Kula badhe sinau.'],['Kamu / Anda','Sampeyan / Panjenengan','Panjenengan badhe tindak pundi?'],['Makan','Nedha','Kula badhe nedha.'],['Minum','Ngunjuk','Kula badhe ngunjuk toya.'],['Tidur','Tilem','Adik nembe tilem.'],['Pergi','Kesah','Kula badhe kesah dhateng sekolah.'],['Pulang','Wangsul','Kula badhe wangsul.'],['Sudah','Sampun','Kula sampun rampung.'],['Belum','Dereng','Kula dereng mangertos.'],['Bagaimana','Kados pundi','Kados pundi kabaripun?'],['Terima kasih','Matur nuwun','Matur nuwun sanget.'],['Maaf','Nyuwun pangapunten','Nyuwun pangapunten.'],['Rumah','Griya','Griya kula wonten mriki.'],['Air','Toya','Kula ngunjuk toya.'],['Baik','Saé','Kabaripun saé.']],
+kramainggil:[
+['Makan (untuk menghormati)','Dhahar','Bapak sampun dhahar?'],['Pergi (untuk menghormati)','Tindak','Bapak badhe tindak pundi?'],['Datang (untuk menghormati)','Rawuh','Simbah sampun rawuh.'],['Tidur (untuk menghormati)','Sare','Simbah nembe sare.'],['Berbicara (untuk menghormati)','Ngendika','Bapak ngendika kanthi alus.'],['Melihat (untuk menghormati)','Mirsani','Ibu mirsani pagelaran.'],['Nama (untuk menghormati)','Asma','Asma panjenengan sinten?'],['Rumah (untuk menghormati)','Dalem','Dalemipun wonten pundi?'],['Memberi (untuk menghormati)','Maringi (bentuk biasa) / paring (hormat)','Bapak paring piwulang.'],['Minum (untuk menghormati)','Ngunjuk','Panjenengan badhe ngunjuk?'],['Sudah','Sampun','Panjenengan sampun dhahar?'],['Silakan','Monggo','Monggo, pinarak rumiyin.']]
+};
+const titles={ngoko:'📚 Kosakata Ngoko',ngokoalus:'📚 Kosakata Ngoko Alus',krama:'📚 Kosakata Krama',kramainggil:'📚 Kosakata Krama Alus / Inggil'};
+let level='ngoko',xp=0,learnedSet=new Set(),correctCount=0,quizIndex=0,answered=false;
+const quiz=[
+{q:'Apa arti “matur nuwun”?',opts:['Terima kasih','Selamat pagi','Sampai jumpa','Maaf'],a:0,ex:'Matur nuwun berarti terima kasih.'},
+{q:'Bahasa krama dari “aku” adalah…',opts:['Kowe','Kula','Dheweke','Aku'],a:1,ex:'Kula berarti saya dalam bahasa krama.'},
+{q:'“Mangan” dalam bahasa Indonesia berarti…',opts:['Minum','Tidur','Makan','Pergi'],a:2,ex:'Mangan berarti makan dalam bahasa ngoko.'},
+{q:'Kata hormat untuk “pergi” adalah…',opts:['Turu','Tindak','Ngombe','Mulih'],a:1,ex:'Tindak digunakan sebagai bentuk hormat untuk pergi.'},
+{q:'“Sampun” artinya…',opts:['Belum','Besok','Sudah','Sekarang'],a:2,ex:'Sampun berarti sudah.'},
+{q:'“Banyu” berarti…',opts:['Air','Api','Rumah','Jalan'],a:0,ex:'Banyu berarti air dalam bahasa ngoko.'},
+{q:'Ungkapan sopan untuk meminta maaf adalah…',opts:['Matur nuwun','Nyuwun pangapunten','Sugeng enjing','Monggo'],a:1,ex:'Nyuwun pangapunten berarti mohon maaf.'},
+{q:'“Rawuh” merupakan kata hormat untuk…',opts:['Datang','Makan','Tidur','Melihat'],a:0,ex:'Rawuh berarti datang/hadir sebagai ungkapan hormat.'}
+];
+function renderVocab(){
+ document.getElementById('vocabTitle').textContent=titles[level];
+ const q=document.getElementById('search').value.toLowerCase();
+ const rows=data[level].filter(r=>r.join(' ').toLowerCase().includes(q));
+ document.getElementById('vocab').innerHTML=rows.map((r)=>`<tr><td>${r[0]}</td><td><strong>${r[1]}</strong></td><td>${r[2]}</td></tr>`).join('')||'<tr><td colspan="3">Kosakata tidak ditemukan.</td></tr>';
+ document.getElementById('countLabel').textContent=`Menampilkan ${rows.length} dari ${data[level].length} kosakata.`;
+}
+document.querySelectorAll('.level').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.level').forEach(b=>b.classList.remove('active'));btn.classList.add('active');level=btn.dataset.level;renderVocab();}));
+document.getElementById('search').addEventListener('input',renderVocab);
+document.getElementById('clearSearch').addEventListener('click',()=>{document.getElementById('search').value='';renderVocab()});
+function renderQuiz(){
+ answered=false;const item=quiz[quizIndex%quiz.length];document.getElementById('question').textContent=item.q;document.getElementById('feedback').textContent='';
+ document.getElementById('answers').innerHTML=item.opts.map((o,i)=>`<button class="answer" data-i="${i}">${o}</button>`).join('');
+ document.querySelectorAll('.answer').forEach(b=>b.addEventListener('click',()=>{if(answered)return;answered=true;const ok=Number(b.dataset.i)===item.a;if(ok){xp+=10;correctCount++;learnedSet.add(item.q);b.classList.add('correct');document.getElementById('feedback').textContent='✅ Benar! +10 XP. '+item.ex;}else{b.classList.add('wrong');document.querySelectorAll('.answer')[item.a].classList.add('correct');document.getElementById('feedback').textContent='Belum tepat. '+item.ex;}updateStats();}));
+}
+document.getElementById('nextQuiz').addEventListener('click',()=>{quizIndex++;renderQuiz()});
+function updateStats(){document.getElementById('points').textContent=xp+' XP';document.getElementById('learned').textContent=learnedSet.size;document.getElementById('streak').textContent=(correctCount%6)+'/5';}
+const dialogs={
+greeting:[['A:','Sugeng enjing!'],['B:','Sugeng enjing.'],['A:','Piye kabarmu?'],['B:','Apik, matur nuwun.']],
+thanks:[['A:','Matur nuwun sampun mbiyantu.'],['B:','Sami-sami.'],['A:','Nyuwun pangapunten sampun ngrepoti.'],['B:','Mboten napa-napa.']],
+ask:[['A:','Kados pundi kabaripun?'],['B:','Alhamdulillah, sae.'],['A:','Mugi tansah sehat.'],['B:','Matur nuwun. Mugi panjenengan ugi.']]
+};
+function renderDialogue(){const arr=dialogs[document.getElementById('situation').value];document.getElementById('dialogue').innerHTML=arr.map(x=>`<div class="dialogue"><b>${x[0]}</b> ${x[1]}</div>`).join('')}
+document.getElementById('situation').addEventListener('change',renderDialogue);
+renderVocab();renderQuiz();renderDialogue();
+</script>
+</body></html>
